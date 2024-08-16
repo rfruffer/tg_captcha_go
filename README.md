@@ -26,3 +26,6 @@ You can change several bot's settings (welcome message, ban duration, socks5 pro
 ## copy from Forks
 - [mxssl/tg-captcha-bot](https://github.com/mxssl/tg-captcha-bot/tree/master) 
 - [momai/tg-captcha-bot](https://github.com/momai/tg-captcha-bot) - fork of `tg-captcha-bot` with interesting additional features.
+
+go mod tidy
+go run 

@@ -8,13 +8,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"regexp"
+	//"regexp"
 	"strconv"
 	"sync"
 	"syscall"
 	"time"
 
-	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"golang.org/x/net/proxy"
 	tb "gopkg.in/tucnak/telebot.v2"
@@ -39,8 +38,8 @@ type Config struct {
 var config Config
 var passedUsers = sync.Map{}
 var bot *tb.Bot
-var tgtoken = "TGTOKEN"
-var configPath = "CONFIG_PATH"
+var tgtoken = ""
+var configPath = "/config.toml"
 
 func init() {
 	err := readConfig()
@@ -50,11 +49,12 @@ func init() {
 }
 
 func main() {
-	token, err := getToken(tgtoken)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	log.Printf("Telegram Bot Token [%v] successfully obtained from env variable $TGTOKEN\n", token)
+	//token, err := getToken(tgtoken)
+	token := tgtoken
+	//if err != nil {
+	//	log.Fatalln(err)
+	//}
+	//log.Printf("Telegram Bot Token [%v] successfully obtained from env variable $TGTOKEN\n", token)
 
 	var httpClient *http.Client
 	if config.UseSocks5Proxy == "yes" {
@@ -65,6 +65,7 @@ func main() {
 		}
 	}
 
+	err := error(nil)
 	bot, err = tb.NewBot(tb.Settings{
 		Token:  token,
 		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
@@ -219,22 +220,22 @@ func readConfig() (err error) {
 	return
 }
 
-func getToken(key string) (string, error) {
-	token, ok := os.LookupEnv(key)
-	if !ok {
-		err := errors.Errorf("Env variable %v isn't set!", key)
-		return "", err
-	}
-	match, err := regexp.MatchString(`^[0-9]+:.*$`, token)
-	if err != nil {
-		return "", err
-	}
-	if !match {
-		err := errors.Errorf("Telegram Bot Token [%v] is incorrect. Token doesn't comply with regexp: `^[0-9]+:.*$`. Please, provide a correct Telegram Bot Token through env variable TGTOKEN", token)
-		return "", err
-	}
-	return token, nil
-}
+//func getToken(key string) (string, error) {
+//	token, ok := os.LookupEnv(key)
+//	if !ok {
+//		err := errors.Errorf("Env variable %v isn't set!", key)
+//		return "", err
+//	}
+//	match, err := regexp.MatchString(`^[0-9]+:.*$`, token)
+//	if err != nil {
+//		return "", err
+//	}
+//	if !match {
+//		err := errors.Errorf("Telegram Bot Token [%v] is incorrect. Token doesn't comply with regexp: `^[0-9]+:.*$`. Please, provide a correct Telegram Bot Token through env variable TGTOKEN", token)
+//		return "", err
+//	}
+//	return token, nil
+//}
 
 func getBanDuration() (int64, error) {
 	if config.BanDurations == "forever" {

@@ -2,25 +2,25 @@
 # Config file for Telegram Captcha Bot
 
 # Button text
-button_text = "I'm not a robot!"
+button_text = "Я не робот!"
 
 # Bot sends this message to new users
-welcome_message = "Hello! This is the spam protection system. Please press the button within 30 seconds or you will be banned!"
+welcome_message = "Привет! Это наш способ защититься от ботов, просьба отнестись с пониманием. Пожалуйста, нажми на кнопку ниже в течение минуты иначе будешь забанен!"
 
 # Edit welcome message with this text if user passed validation
-after_success_message = "User passed the validation."
+after_success_message = "Пользователь справился"
 
 # Edit welcome message with this text if user failed validation
-after_fail_message = "User didn't pass the validation and was banned."
+after_fail_message = "Пользователь не справился и был забланен"
 
 # Show success and failure messages or delete them. Pick "show" or "del"
-print_success_and_fail_messages_strategy = "show"
+print_success_and_fail_messages_strategy = "del"
 
 # During this time in seconds, the new user have to press the captha button
-welcome_timeout = "30"
+welcome_timeout = "90"
 
 # If the new user does not press the button, the bot will ban the user for this duration of time. Can be "forever" or number of minutes ("10")
-ban_duration = "forever"
+ban_duration = "10"
 
 # Do you want to use a socks5 proxy server? Can be "yes" or "no"
 use_socks5_proxy = "no"
